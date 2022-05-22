@@ -1,20 +1,7 @@
-from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .products import products
-from .models import Product
-from .serializers import ProductSerializer
-# Create your views here.
-
-
-@api_view(['GET'])
-def get_routes(request):
-    routes = [
-        'api/',
-        'api/products',
-        'api/products/id',
-    ]
-    return Response(routes)
+from base.models import Product
+from base.serializers import ProductSerializer
 
 
 @api_view(['GET'])
