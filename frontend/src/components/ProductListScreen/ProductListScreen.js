@@ -5,13 +5,15 @@ import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../Loader'
 import Message from '../Message'
 import { createProduct, deleteProduct, listProducts } from '../../redux/actions/productActions'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { PRODUCT_CREATE_RESET } from '../../redux/constants/productConstants'
+import Paginate from '../Paginate/Paginate'
 
 const ProductListScreen = () => {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const location = useLocation()
 
     const [searchParams, setSearchParams] = useSearchParams();
     // console.log(searchParams);
@@ -29,6 +31,8 @@ const ProductListScreen = () => {
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
 
+    const keyword = location.search
+
     useEffect(() => {
 
         dispatch({ type: PRODUCT_CREATE_RESET })
@@ -40,11 +44,11 @@ const ProductListScreen = () => {
         if (successCreate) {
             navigate(`/admin/product/${createdProduct._id}/edit`)
         } else {
-            dispatch(listProducts())
+            dispatch(listProducts(keyword))
         }
 
 
-    }, [dispatch, navigate, userInfo, successDelete, successCreate, createdProduct])
+    }, [dispatch, navigate, userInfo, successDelete, successCreate, createdProduct, keyword])
 
     const deleteHandler = (id) => {
 
@@ -122,7 +126,7 @@ const ProductListScreen = () => {
                                     ))}
                                 </tbody>
                             </Table>
-                            {/* <Paginate pages={pages} page={page} isAdmin={true} /> */}
+                            <Paginate pages={pages} page={page} isAdmin={true} />
                         </div>
                     )}
         </div>
