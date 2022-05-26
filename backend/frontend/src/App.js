@@ -7,6 +7,7 @@ import HomeScreen from './components/HomeScreen/HomeScreen';
 import CartScreen from './components/CartScreen/CartScreen';
 import {
   BrowserRouter,
+  HashRouter,
   Routes,
   Route,
 } from "react-router-dom";
@@ -26,7 +27,7 @@ import OrderListScreen from './components/OrderListScreen/OrderListScreen';
 
 function App() {
   return (
-    <BrowserRouter >
+    <HashRouter >
       <Header></Header>
       <main>
         <Container className='py-3'>
@@ -65,7 +66,7 @@ function App() {
       </main>
       <Footer></Footer>
 
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
